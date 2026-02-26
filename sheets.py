@@ -23,16 +23,13 @@ class SheetsDB:
     def __init__(self, spreadsheet_id: str):
         self.spreadsheet_id = spreadsheet_id
 
-        # Railway: leer desde variable de entorno
-        # Local: leer desde archivo credentials.json
-        print("GOOGLE_CREDENTIALS presente:", bool(os.getenv("GOOGLE_CREDENTIALS")))
-        google_creds_json = os.getenv("GOOGLE_CREDENTIALS")
+        google_creds_json = os.getenv("GCP_CREDENTIALS")
+        print("GCP_CREDENTIALS presente:", bool(google_creds_json))
         if google_creds_json:
             info = json.loads(google_creds_json)
             creds = Credentials.from_service_account_info(info, scopes=SCOPES)
         else:
             creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
-
         service = build("sheets", "v4", credentials=creds)
         self.sheet = service.spreadsheets()
 
