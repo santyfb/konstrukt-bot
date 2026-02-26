@@ -64,7 +64,7 @@ AYUDA_TEXTO = (
     "➕ /nuevaobra — Registrar una obra nueva\n"
     "👷 /personal — Ver personal asignado a una obra\n"
     "👤 /nuevopersonal — Agregar persona a una obra\n"
-    "📊 /etapas — Ver\/actualizar % de avance de etapas\n"
+    "📊 /etapas — Ver/actualizar % de avance de etapas\n"
     "📋 /resumen — Resumen general de todas las obras\n\n"
     "_Escribí el comando o usá el menú de abajo._"
 )
