@@ -25,6 +25,7 @@ class SheetsDB:
 
         # Railway: leer desde variable de entorno
         # Local: leer desde archivo credentials.json
+        print("GOOGLE_CREDENTIALS presente:", bool(os.getenv("GOOGLE_CREDENTIALS")))
         google_creds_json = os.getenv("GOOGLE_CREDENTIALS")
         if google_creds_json:
             info = json.loads(google_creds_json)
