@@ -4,6 +4,7 @@ Maneja todas las operaciones de lectura/escritura
 """
 
 import json
+import os
 from datetime import datetime
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -11,7 +12,6 @@ from googleapiclient.discovery import build
 
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-# ── Pestañas (hojas) en Google Sheets ──
 SHEET_OBRAS     = "Obras"
 SHEET_ETAPAS    = "Etapas"
 SHEET_PERSONAL  = "Personal"
@@ -22,7 +22,16 @@ SHEET_NOTAS     = "Notas"
 class SheetsDB:
     def __init__(self, spreadsheet_id: str):
         self.spreadsheet_id = spreadsheet_id
-        creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+
+        # Railway: leer desde variable de entorno
+        # Local: leer desde archivo credentials.json
+        google_creds_json = os.getenv("GOOGLE_CREDENTIALS")
+        if google_creds_json:
+            info = json.loads(google_creds_json)
+            creds = Credentials.from_service_account_info(info, scopes=SCOPES)
+        else:
+            creds = Credentials.from_service_account_file("credentials.json", scopes=SCOPES)
+
         service = build("sheets", "v4", credentials=creds)
         self.sheet = service.spreadsheets()
 
